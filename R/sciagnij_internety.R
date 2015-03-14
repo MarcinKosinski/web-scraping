@@ -20,7 +20,13 @@ for( i in seq_along(linki_do_main_page)  ){
    tytulo_linki[[i]] <- superfunkcja( linki_do_main_page[[i]],  dictionary = dictionaryX, how_many = 1 )
    
 }
-    
+  
+lin <- unlist(lapply(tytulo_linki, function(element){
+   if(class(element)=="data.frame"){
+      as.vector(element$link)
+   }
+}))
 
 
-tytulo_linki
+
+

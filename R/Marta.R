@@ -13,12 +13,17 @@ superfunkcja <- function(main_page_link, dictionary, how_many){
    })
    
    t <- titles[which(unlist(lista)==1)]
+   #g <- guess_encoding(t)$confidence[1]
+   #if(g>0.5) repair_encoding(t)
    l <- unlist(links[which(unlist(lista)==1)])
-   ll <- na.omit(unlist(stri_extract_all_regex(l, "[h][t][t][p].+")))
-   tt <- t[l %in% ll]
+   #gg <- guess_encoding(l)$confidence[1]
+   #if(gg>0.5) repair_encoding(l)
+   ll <- unlist(stri_extract_all_regex(l, "[h][t][t][p].+"))
    if(length(ll)==0){
       "kicha"
    } else {
+      ll <- na.omit(ll)
+      tt <- t[l %in% ll]
       data.frame(tytul=tt, link=ll)
    }
 }
