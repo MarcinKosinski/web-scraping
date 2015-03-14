@@ -17,7 +17,7 @@ superfunkcja <- function(main_page_link, dictionary, how_many){
    ll <- na.omit(unlist(stri_extract_all_regex(l, "[h][t][t][p].+")))
    tt <- t[l %in% ll]
    if(length(ll)==0){
-      NA
+      "kicha"
    } else {
       data.frame(tytul=tt, link=ll)
    }
