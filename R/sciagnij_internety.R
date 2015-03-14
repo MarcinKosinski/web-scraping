@@ -27,6 +27,12 @@ lin <- unlist(lapply(tytulo_linki, function(element){
    }
 }))
 
+tyt <- unlist(lapply(tytulo_linki, function(element){
+   if(class(element)=="data.frame"){
+      as.vector(element$tytul)
+   }
+}))
+
 
 
 
