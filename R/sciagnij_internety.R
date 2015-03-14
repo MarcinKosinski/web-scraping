@@ -34,5 +34,27 @@ tyt <- unlist(lapply(tytulo_linki, function(element){
 }))
 
 
+# dir.create("dane/")
+# dir.create("dane/artykuly/")
+dir <- "dane/artykuly/"
+
+
+for( i in seq_along(tyt) ){
+   
+   element <- lin[i]
+   file.create( file = paste0( dir, element, ".txt" ) )
+   write.table(x = element, file = paste0( dir, paste0("arty",i), ".txt" ), fileEncoding = "UTF-8" )
+   write.table(x = tryCatch( repair_encoding(tyt[i]), error = function(cond) tyt[i] ), file = paste0( dir, paste0("arty",i), ".txt" ), append = TRUE, fileEncoding = "UTF-8" )
+   
+   text <- html( element ) %>% 
+      html_nodes( ".art-lead, .art-content, p, #intertext1,
+           .lead,#artykul, #gazeta_article_lead", "newsContent", "hyphenate" ) %>% 
+      html_text() %>% 
+      repair_encoding() %>% 
+      html_text 
+   
+   tryCatch( repair_encoding(text), error = function(cond) text ) %>%
+   write.table( file = paste0( dir, paste0("arty",i), ".txt" ), append = TRUE, fileEncoding = "UTF-8" ) 
+} 
 
 
