@@ -7,9 +7,7 @@ source("R/Marcin.R")
 
 
 
-dictionaryX <- c("bronisław", "komorowski",
-                "andrzej", "duda",
-                "magdalena", "ogórek")
+dictionary <- unique(as.character(read.table("slownik.txt",encoding = "UTF-8")[-1,]))
 
 
 tytulo_linki <- list( )
