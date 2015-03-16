@@ -239,3 +239,4 @@ kampania
 tura
 ture
 
+notowania
