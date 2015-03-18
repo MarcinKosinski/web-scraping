@@ -1,0 +1,5 @@
+@echo off
+R CMD BATCH "sciezka dostepu do pliku, ktory chce wywolac"
+
+
+# i zapisac to z rozszerzeniem .bat
