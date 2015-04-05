@@ -22,14 +22,17 @@ information <- lapply(pagesToDDl, function( page ){
    )   
 })
 # directory to write
-dir <- "D:/web-scraping/dane/facebook/"
+#dir <- "D:/web-scraping/dane/facebook/"
 
 #write posts
 for(i in seq_along(information)){
    
+   dir <- paste0("D:/web-scraping/dane/facebook/", pagesToDDl[[i]], "/")
+   
    file_name <- strftime(Sys.time(),"%s") 
    file.create(file = paste0(dir, file_name, ".txt"))
    
+   information[[i]] %>%
    write.table(file = paste0(dir, file_name, ".txt"), 
                append = TRUE, col.names = FALSE, row.names = FALSE,
                quote = FALSE)
