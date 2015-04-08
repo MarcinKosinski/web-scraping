@@ -8,8 +8,8 @@ library("rvest")
 
 # loading our functions:
 
-source("R/google.R")
-source("R/extract_title_and_link.R")
+source("D:/web-scraping/R/google.R")
+source("D:/web-scraping/R/extract_title_and_link.R")
 
 # loading dictionary:
 
@@ -42,7 +42,7 @@ seperate_titles <- unlist(lapply(list_of_titles_and_links, function(element){
 # dir.create("dane/")
 # dir.create("dane/artykuly/")
 
-dir <- "dane/artykuly/"
+dir <- "D:/web-scraping/dane/artykuly/"
 
 for(i in seq_along(seperate_titles)){
    
@@ -53,14 +53,17 @@ for(i in seq_along(seperate_titles)){
    
    # saving link:
    
-   write.table(x = element, file = paste0(dir, file_name, ".txt" ))
+   write.table(x = element, file = paste0(dir, file_name, ".txt" ),
+               col.names = FALSE, row.names = FALSE,
+               quote = FALSE))
    
    # saving title:
    
    write.table(x = tryCatch(repair_encoding(seperate_titles[i]), 
                             error = function(condition) seperate_titles[i]), 
                file = paste0(dir, file_name, ".txt" ), 
-               append = TRUE, colnames <- FALSE)
+               append = TRUE, col.names = FALSE, row.names = FALSE,
+               quote = FALSE)
    
    text <- html(element) %>% 
       html_nodes(".art-lead, .art-content, p, #intertext1, .lead, #artykul, #gazeta_article_lead, newsContent, hyphenate") %>% 
@@ -68,6 +71,7 @@ for(i in seq_along(seperate_titles)){
    
    tryCatch(repair_encoding(text), error=function(condition) text) %>%
       write.table(file = paste0(dir, file_name, ".txt"), 
-                  append = TRUE, colnames <- FALSE) 
+                  append = TRUE, col.names = FALSE, row.names = FALSE,
+                  quote = FALSE)
 } 
 
