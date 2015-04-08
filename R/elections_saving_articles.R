@@ -13,7 +13,7 @@ source("D:/web-scraping/R/extract_title_and_link.R")
 
 # loading dictionary:
 
-our_dictionary <- unique(as.character(read.table("slownik.txt",encoding = "UTF-8")[-1,]))
+our_dictionary <- unique(as.character(read.table("D:/web-scraping/slownik.txt",encoding = "UTF-8")[-1,]))
 
 # extracting links and titles of articles:
 
