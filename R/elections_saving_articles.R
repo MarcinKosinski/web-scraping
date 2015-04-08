@@ -20,7 +20,7 @@ our_dictionary <- unique(as.character(read.table("slownik.txt",encoding = "UTF-8
 links_from_google <- tidy_google_links(c("wiadomosci", "newsy", "swiat", "gazeta"))
 
 list_of_titles_and_links <- list()
-for(i in seq_along(linki_do_main_page)){
+for(i in seq_along(links_from_google)){
    list_of_titles_and_links[[i]] <- extract_title_and_link(links_from_google[[i]],  
                                                            our_dictionary, 2)  
 }
