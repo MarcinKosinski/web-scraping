@@ -55,7 +55,7 @@ for(i in seq_along(seperate_titles)){
    
    write.table(x = element, file = paste0(dir, file_name, ".txt" ),
                col.names = FALSE, row.names = FALSE,
-               quote = FALSE))
+               quote = FALSE)
    
    # saving title:
    
