@@ -9,7 +9,7 @@ ui <- dashboardPage(
                    dropdownMenu(type = "messages",
                                 messageItem(
                                    from = "Marcin Kosiński",
-                                   href = "https://github.com/MarcinKosinski"
+                                   message = "https://github.com/MarcinKosinski"
                                 ),
                                 messageItem(
                                    from = "Marta Sommer",
