@@ -157,7 +157,9 @@ server <- function(input, output) {
                group = "kandydat", type = "Line", data = ileLajkow)
    m1$set(pointSize = 0, lineWidth = 1)
    m1$addParams(dom = "myChart2")
-#   m1$chart(color = c('brown', '#594c26', 'blue',  'green'))
+    m1$set(lineColors=c(   'blue','#594c26','green','brown'))
+    #m1$set(ymax=150000) <- to rujnuje wykresy
+
    return(m1)
    
    
