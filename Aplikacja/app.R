@@ -9,7 +9,7 @@ ui <- dashboardPage(
                    dropdownMenu(type = "messages",
                                 messageItem(
                                    from = "Marcin Kosiński",
-                                   message = "https://github.com/MarcinKosinski"
+                                   href = "https://github.com/MarcinKosinski"
                                 ),
                                 messageItem(
                                    from = "Marta Sommer",
@@ -58,10 +58,10 @@ ui <- dashboardPage(
                       ),
                      box(title = "Legenda", textOutput("legendDivID"), collapsible = TRUE,
                          #collapsed = TRUE,
-                         width = 4, solidHeader = TRUE, status = "warning"),
+                         width = 4, solidHeader = TRUE, status = "warning",height = 90),
                      box(title = "Kierunek osi", collapsible = TRUE, 
                          #collapsed = TRUE,
-                         width = 8, solidHeader = TRUE, status = "warning",
+                         width = 8, solidHeader = TRUE, status = "warning",height = 90,
                          selectInput(inputId = "type",
                                      label = "Kierunek osi wykresu paskowego",
                                      choices = c("multiBarChart", "multiBarHorizontalChart"),
