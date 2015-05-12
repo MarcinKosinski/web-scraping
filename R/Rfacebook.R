@@ -1,7 +1,6 @@
 library(Rfacebook)
 library(dplyr)
-# authenticateFACEBOOK <- fbOAuth(app_id="1482889145260919", app_secret="cc623c3d278334d5cf28e491d88ee2fb",
-#                 extended_permissions = TRUE)
+
 
 # save(authenticateFACEBOOK, file = "R/authenticateFACEBOOK.rda")
 
