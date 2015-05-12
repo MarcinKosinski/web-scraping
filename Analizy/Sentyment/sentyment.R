@@ -10,7 +10,7 @@ gdzie_artykuly <- "dane/artykuly/"
 pozytywne <- "Analizy/Sentyment/pozytywne.txt"
 negatywne <- "Analizy/Sentyment/negatywne.txt"
 
-Funckja Marty Sommer
+#Funckja Marty Sommer
 uprosc_tekst <- function(wektor_tekstow){
    
    wektor_tekstow %>%
@@ -133,6 +133,11 @@ sentyment_dla_kandydatow <- function( pozytywne, negatywne, gdzie_artykuly  ){
       
 }
 
+
+gdzie_artykuly <- "dane/artykuly/"
+pozytywne <- "Analizy/Sentyment/pozytywne.txt"
+negatywne <- "Analizy/Sentyment/negatywne.txt"
+sentyment_dla_kandydatow( pozytywne, negatywne, gdzie_artykuly)
 
 
 #
