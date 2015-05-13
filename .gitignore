@@ -1,5 +1,13 @@
 # Created by https://www.gitignore.io
 
+dane/
+*.Rout
+Aplikacja/shinyapps/
+R/Marcin.R
+R/Marta.R
+R/sciagnij_internety.R
+R/authenticateFACEBOOK.rda
+
 ### LaTeX ###
 *.acn
 *.acr
