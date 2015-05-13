@@ -39,7 +39,7 @@ Ostatecznie 13.05.2015 zebranych danych było:
 
 - 111 MB danych zawierających artykuły z portali oraz komentarze pod artykułami
 - 25,5 MB danych dotyczących aktywności autorów i fanów na 4 wymienoinych wyżej fanpage'ach
-- X MB danych o tweetach z twittera
+- 235 MB danych o tweetach z twittera
 
 
 ## Wskaźniki, ich autonomiczność i automatyczna aktualizacja
