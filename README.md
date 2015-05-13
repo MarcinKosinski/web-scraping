@@ -6,6 +6,11 @@
 
 Projekt dotyczący analizy treści w internecie przed wyborami prezydenckimi w maju 2015.
 
+Autorzy
+
+- Marcin Kosiński m.p.kosinski@gmail.com
+- Marta Sommer mmartasommer@gmail.com
+
 
 # 3 faza projektu
 
