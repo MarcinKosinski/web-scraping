@@ -8,3 +8,4 @@ source("D:/web-scraping/Analizy/Tweety_kto_ile_ktorego_dnia/Tweety_kto_ile_ktore
 # zaktualizuj aplikacje
 library(shinyapps)
 deployApp("D:/web-scraping/Aplikacja", appName ="wp2015")
+deployApp("D:/web-scraping/AplikacjaKula", appName ="wp2015_kula")

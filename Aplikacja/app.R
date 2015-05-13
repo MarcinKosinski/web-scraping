@@ -5,7 +5,8 @@ library(dygraphs)
 library(rCharts)
 library(dplyr)
 library(reshape2)
-library(shinyGlobe)
+#library(shinyGlobe)
+library(data.table)
 ui <- dashboardPage(
    dashboardHeader(title = "Wybory w internecie",
                    dropdownMenu(type = "messages",
@@ -30,7 +31,8 @@ ui <- dashboardPage(
    dashboardSidebar(
       sidebarMenu(
          menuItem("Facebook i Artykuły", tabName = "dashboard", icon = icon("dashboard")),
-         menuItem("Kula Tweetów", tabName = "twit", icon = icon("dashboard")),
+         menuItem("Kula Tweetów", icon = icon("file-code-o"),
+                  href = "https://marcinkosinski.shinyapps.io/wp2015_kula/"),
          menuItem("Twitter", tabName = "twit2", icon = icon("dashboard")),
          menuItem("Opis", tabName = "opis", icon = icon("th")),
          menuItem("Kody źródłowe", icon = icon("file-code-o"),
@@ -96,14 +98,25 @@ ui <- dashboardPage(
                      
                   )
          ),
-         tabItem(tabName = "twit",
-                 fluidRow(
-                 box( title = "Gdzie tweetowano o kandydatach (użytkownicy z włączoną lokalizacją)?", collapsible = TRUE, 
-                      width = 12, solidHeader = TRUE, status = "warning", globeOutput("globe")
-                 )
-                 )
-                      
-         ),
+#          tabItem(tabName = "twit",
+#                  fluidRow(
+#                  box( title = "Gdzie tweetowano o kandydatach (użytkownicy z włączoną lokalizacją)?", collapsible = TRUE, 
+#                       width = 12, solidHeader = TRUE, status = "warning", 
+#                       tagList(
+#                          globeOutput("globe"),
+#                          div(id="info", tagList(
+#                             HTML(
+#                                'Dane dostępne <a href="https://github.com/MarcinKosinski/web-scraping"> tutaj  </a>'
+#                             ),
+#                             HTML(
+#                                '<br />Built in <a href ="http://rstudio.com/shiny/">Shiny</a> using the <a href ="http://github.com/trestletech/shinyGlobe/">ShinyGlobe</a> package.'
+#                             )
+#                          ))
+#                       )
+#                  )
+#                  )
+#                       
+#          ),
          tabItem( tabName = "twit2",
                   fluidRow(
                   box(title = "O kim ile dziennie tweetowano?", collapsible = TRUE, 
@@ -111,7 +124,7 @@ ui <- dashboardPage(
                       showOutput("myChart3", "morris"),
                       
                       selectInput(inputId = "tweeet",
-                                  label = "Którego kandydata fanpage uwzględnić?",
+                                  label = "Którego kandydata uwzględnić?",
                                   choices = c("duda",
                                               "komorowski",
                                               "ogorek",
@@ -120,8 +133,31 @@ ui <- dashboardPage(
                                   selected = c("duda",
                                                "komorowski",
                                                "ogorek",
-                                               "kukiz"))
+                                               "kukiz")),
+                      dateInput(inputId ="dataOd", "Data od:", value="2015-03-30", min = "2015-03-30", max="2015-05-11" ),
+                      dateInput(inputId ="dataDo", "Data do:", value="2015-05-11", min = "2015-03-30", max="2015-05-11" )
                       
+                  ),
+                  box(title = "Z jakich urządzeń o kim tweetowano?", collapsible = TRUE, 
+                      width = 12, solidHeader = TRUE, status = "warning",
+                      showOutput("myChart4", "nvd3"),
+                      
+                      selectInput(inputId = "urzadzenie",
+                                  label = "Którego kandydata uwzględnić?",
+                                  choices = c("duda",
+                                              "komorowski",
+                                              "ogorek",
+                                              "kukiz"),
+                                  multiple = TRUE,
+                                  selected = c("duda",
+                                               "komorowski",
+                                               "ogorek",
+                                               "kukiz")),
+                      selectInput(inputId = "type2",
+                                  label = "Kierunek osi wykresu paskowego",
+                                  choices = c("multiBarChart", "multiBarHorizontalChart"),
+                                  selected = "multiBarChart")
+                  
                   )
                   )
          ),
@@ -138,10 +174,12 @@ ui <- dashboardPage(
 # load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
 # population <- readRDS("Aplikacja/kula.Rds")
 # load("Aplikacja/tabela2.rda")
+# load("Aplikacja/tab.rda")
 load("doNarysowaniaDygraph.rda")
 load("barchart.rda")
 load("ileLajkow.rda")
 load("tabela2.rda")
+load("tab.rda")
 population <- readRDS("kula.Rds")
 
 
@@ -174,11 +212,26 @@ server <- function(input, output) {
    })
    
    
+   
+   output$myChart4 <- renderChart({
+      
+      nn1 <- nPlot( ile ~ gdzie, group = "indykator", data = tab %>%
+                      filter( indykator %in% input$urzadzenie),
+                   type = input$type2)
+      nn1$addParams(dom = "myChart4")
+      nn1$chart(color = c('brown', '#594c26', 'blue',  'green'))
+      return(nn1)
+      
+   })
+   
+   
    output$myChart3 <- renderChart({
       
       m3 <- mPlot( y="ile_tweetow", x="dzien", group = "kto", type = "Line",
                    data = tabela2 %>%
-                      filter( kto %in% input$tweeet))
+                      filter( kto %in% input$tweeet,
+                              as.Date(dzien) >= as.Date(input$dataOd),
+                              as.Date(dzien) <= as.Date(input$dataDo)))
       m3$addParams(dom = "myChart3")
       m3$set(lineColors=c(   'blue','#594c26','green','brown'))
       return(m3)
@@ -203,9 +256,9 @@ server <- function(input, output) {
    
    
    
-   output$globe <- renderGlobe({
-      population
-   })
+#    output$globe <- renderGlobe({
+#       population
+#    })
    
    
 }
