@@ -1,8 +1,8 @@
 library(dplyr)
 
 
-paths2articles <- paste0( "dane/artykuly/", 
-                          grep( ".txt", list.files("dane/artykuly/"), value = TRUE))
+paths2articles <- paste0( "D:/web-scraping/dane/artykuly/", 
+                          grep( ".txt", list.files("D:/web-scraping/dane/artykuly/"), value = TRUE))
 
 paths2articles %>% 
    sapply( function( element ){
@@ -133,4 +133,4 @@ WhoAndWhere %>%
 
 WhoAndWhere2Viz %>% as.data.frame() -> WhoAndWhere2Viz
 
-save(WhoAndWhere2Viz, file = "Analizy/Ilosciowo/barchart.rda")
+save(WhoAndWhere2Viz, file = "D:/web-scraping/Aplikacja/barchart.rda")

@@ -4,6 +4,7 @@ library(shiny)
 library(dygraphs)
 library(rCharts)
 library(dplyr)
+library(reshape2)
 ui <- dashboardPage(
    dashboardHeader(title = "Wybory w internecie",
                    dropdownMenu(type = "messages",
@@ -72,7 +73,7 @@ ui <- dashboardPage(
 #                                      choices = c("multiBarChart", "multiBarHorizontalChart"),
 #                                      selected = "multiBarChart")
 #                      ),
-                     box(title = "Kto ile dziennie miał like'ów?", collapsible = TRUE, 
+                     box(title = "Kto ile dziennie miał like'ów pod postami na fanpage?", collapsible = TRUE, 
                          width = 12, solidHeader = TRUE, status = "warning",
                          showOutput("myChart2", "morris"),
                          
@@ -101,10 +102,13 @@ ui <- dashboardPage(
    )
 )
 
-load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
-load("Analizy/Ilosciowo/barchart.rda")
-load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
+# load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
+# load("Analizy/Ilosciowo/barchart.rda")
+# load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
 
+load("doNarysowaniaDygraph.rda")
+load("barchart.rda")
+load("ileLajkow.rda")
 
 
 

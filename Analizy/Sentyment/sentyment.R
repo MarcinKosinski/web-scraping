@@ -6,9 +6,9 @@ library(rvest)
 library(xts)
 library(dygraphs)
 
-gdzie_artykuly <- "dane/artykuly/"
-pozytywne <- "Analizy/Sentyment/pozytywne.txt"
-negatywne <- "Analizy/Sentyment/negatywne.txt"
+gdzie_artykuly <- "D:/web-scraping/dane/artykuly/"
+pozytywne <- "D:/web-scraping/Analizy/Sentyment/pozytywne.txt"
+negatywne <- "D:/web-scraping/Analizy/Sentyment/negatywne.txt"
 
 #Funckja Marty Sommer
 uprosc_tekst <- function(wektor_tekstow){
@@ -129,14 +129,14 @@ sentyment_dla_kandydatow <- function( pozytywne, negatywne, gdzie_artykuly  ){
    doNarysowania$sentymentOgorek <- cumsum(doNarysowania$sentymentOgorek)
    doNarysowania$sentymentKomorowski <- cumsum(doNarysowania$sentymentKomorowski)
    as.xts(doNarysowania) -> doNarysowaniaDygraph
-   save(doNarysowaniaDygraph, file = "Analizy/Sentyment/doNarysowaniaDygraph.rda")
+   save(doNarysowaniaDygraph, file = "D:/web-scraping/Aplikacja/doNarysowaniaDygraph.rda")
       
 }
 
 
-gdzie_artykuly <- "dane/artykuly/"
-pozytywne <- "Analizy/Sentyment/pozytywne.txt"
-negatywne <- "Analizy/Sentyment/negatywne.txt"
+gdzie_artykuly <- "D:/web-scraping/dane/artykuly/"
+pozytywne <- "D:/web-scraping/Analizy/Sentyment/pozytywne.txt"
+negatywne <- "D:/web-scraping/Analizy/Sentyment/negatywne.txt"
 sentyment_dla_kandydatow( pozytywne, negatywne, gdzie_artykuly)
 
 

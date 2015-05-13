@@ -44,9 +44,9 @@ motyw <- theme_bw(base_family = "serif", base_size = 28) +
          axis.title.y = element_text(vjust=+1)
    )
 
-ggplot(howManyArticles, aes( y = ileArtykulow, x = kandydat))+
-   geom_bar(stat="identity") + motyw +
-   ylab("ile artykułów") + ggtitle("Ile się pisze ostatnio \n o kandydatch w wyborach?")
+# ggplot(howManyArticles, aes( y = ileArtykulow, x = kandydat))+
+#    geom_bar(stat="identity") + motyw +
+#    ylab("ile artykułów") + ggtitle("Ile się pisze ostatnio \n o kandydatch w wyborach?")
 
 
 
@@ -93,31 +93,38 @@ WhoAndWhere %>% filter( kto != "") -> WhoAndWhere
 WhoAndWhere
 WhoAndWhere[, 2] <- as.character(WhoAndWhere[, 2])
 
-powyzej3 <- table(WhoAndWhere[, 2])[ table(WhoAndWhere[, 2]) > 3] %>% names()
+najczesciej_piszacy <- names(tail(sort(table(WhoAndWhere[, 2]))))
 
 WhoAndWhere %>%
-   filter( domena %in% powyzej3 ) %>%   
+   filter( domena %in% najczesciej_piszacy ) %>%   
    group_by( kto, domena) %>% 
    summarise( count = n()) -> WhoAndWhere2Viz
 
-WhoAndWhere2Viz
+# WhoAndWhere2Viz
+# 
+# ggplot(WhoAndWhere2Viz, aes( y = count, x = domena))+
+#    geom_bar(stat="identity") + motyw +
+#    ylab("ile artykułów") + ggtitle("Które najczęściej piszące \n o wyborach portale piszą \n o jakich kandydatch w wyborach?")+
+#    facet_grid(kto~.) + theme_bw(base_family = "serif", base_size = 18) +
+#    theme(legend.background = element_blank(),
+#          legend.key = element_blank(),
+#          panel.background = element_blank(),
+#          panel.border = element_blank(),
+#          strip.background = element_blank(),
+#          plot.background = element_blank(),
+#          axis.line = element_blank(),
+#          panel.grid = element_blank(),
+#          legend.position = "top",
+#          axis.title.x = element_text(vjust=-0.4),
+#          axis.title.y = element_text(vjust=+1),
+#          axis.text.x = element_text(vjust=0.2,angle = 45)
+#    )
 
-ggplot(WhoAndWhere2Viz, aes( y = count, x = domena))+
-   geom_bar(stat="identity") + motyw +
-   ylab("ile artykułów") + ggtitle("Które 10 najczęściej piszących \n o wyborach portali piszę \n o jakich kandydatch w wyborach?")+
-   facet_grid(kto~.) + theme_bw(base_family = "serif", base_size = 18) +
-   theme(legend.background = element_blank(),
-         legend.key = element_blank(),
-         panel.background = element_blank(),
-         panel.border = element_blank(),
-         strip.background = element_blank(),
-         plot.background = element_blank(),
-         axis.line = element_blank(),
-         panel.grid = element_blank(),
-         legend.position = "top",
-         axis.title.x = element_text(vjust=-0.4),
-         axis.title.y = element_text(vjust=+1),
-         axis.text.x = element_text(vjust=0.2,angle = 45)
-   )
 
+# require(devtools)
+# install_github('rCharts', 'ramnathv')
 
+library(rCharts)
+n1 <- nPlot( count ~ domena, group = "kto", data = WhoAndWhere2Viz,
+             type = "multiBarChart")
+save(n1, file = "Analizy/Ilosciowo/barchart.rda")

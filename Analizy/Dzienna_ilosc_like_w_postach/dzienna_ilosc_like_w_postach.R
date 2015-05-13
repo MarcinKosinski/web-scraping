@@ -4,7 +4,7 @@ library(dplyr)
 
 # save(authenticateFACEBOOK, file = "R/authenticateFACEBOOK.rda")
 
-load("R/authenticateFACEBOOK.rda")
+load("D:/web-scraping/R/authenticateFACEBOOK.rda")
 
 # pages to follow
 pagesToDDl <- list("janusz.korwin.mikke",
@@ -42,7 +42,7 @@ require(reshape2)
 melt(ileLajkow) ->ileLajkow
 names(ileLajkow)[2:3] <- c("kandydat", "ileLajkowPodWpisami")
 
-save( ileLajkow, file = "Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
+save( ileLajkow, file = "D:/web-scraping/Aplikacja/ileLajkow.rda")
 
 # x1 <- xPlot(ileLajkowPodWpisami ~ daty, group = "kandydat", data = ileLajkow, 
 #             type = "line-dotted")
