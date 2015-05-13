@@ -5,6 +5,7 @@ library(dygraphs)
 library(rCharts)
 library(dplyr)
 library(reshape2)
+library(shinyGlobe)
 ui <- dashboardPage(
    dashboardHeader(title = "Wybory w internecie",
                    dropdownMenu(type = "messages",
@@ -28,7 +29,9 @@ ui <- dashboardPage(
                    ),
    dashboardSidebar(
       sidebarMenu(
-         menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+         menuItem("Facebook i Artykuły", tabName = "dashboard", icon = icon("dashboard")),
+         menuItem("Kula Tweetów", tabName = "twit", icon = icon("dashboard")),
+         menuItem("Twitter", tabName = "twit2", icon = icon("dashboard")),
          menuItem("Opis", tabName = "opis", icon = icon("th")),
          menuItem("Kody źródłowe", icon = icon("file-code-o"),
                   href = "https://github.com/MarcinKosinski/web-scraping"
@@ -93,7 +96,33 @@ ui <- dashboardPage(
                      
                   )
          ),
-         
+         tabItem(tabName = "twit",
+                 box( title = "Gdzie tweetowano o kandydatach (użytkownicy z włączoną lokalizacją)?", collapsible = TRUE, 
+                      width = 12, solidHeader = TRUE, status = "warning", globeOutput("globe")
+                 )
+                      
+         ),
+         tabItem( tabName = "twit2",
+                  fluidRow(
+                  box(title = "O kim ile dziennie tweetowano?", collapsible = TRUE, 
+                      width = 12, solidHeader = TRUE, status = "warning",
+                      showOutput("myChart3", "morris"),
+                      
+                      selectInput(inputId = "tweeet",
+                                  label = "Którego kandydata fanpage uwzględnić?",
+                                  choices = c("duda",
+                                              "komorowski",
+                                              "ogorek",
+                                              "kukiz"),
+                                  multiple = TRUE,
+                                  selected = c("duda",
+                                               "komorowski",
+                                               "ogorek",
+                                               "kukiz"))
+                      
+                  )
+                  )
+         ),
          tabItem(tabName = "opis",
                  h2("Autorzy: Marcina Kosinskiego, Marta Sommer."),
                  h5("Opis aplikacji i kodów źródłowych można znaleźć tutaj, na dole storny https://github.com/MarcinKosinski/web-scraping")
@@ -102,14 +131,16 @@ ui <- dashboardPage(
    )
 )
 
-# load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
-# load("Analizy/Ilosciowo/barchart.rda")
-# load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
-
-load("doNarysowaniaDygraph.rda")
-load("barchart.rda")
-load("ileLajkow.rda")
-
+load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
+load("Analizy/Ilosciowo/barchart.rda")
+load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
+population <- readRDS("Aplikacja/kula.Rds")
+load("Aplikacja/tabela2.rda")
+# load("doNarysowaniaDygraph.rda")
+# load("barchart.rda")
+# load("ileLajkow.rda")
+# load("tabela2.rda")
+# population <- readRDS("kula.Rds")
 
 
 server <- function(input, output) {
@@ -139,6 +170,19 @@ server <- function(input, output) {
       return(n1)
       
    })
+   
+   
+   output$myChart3 <- renderChart({
+      
+      m3 <- mPlot( y="ile_tweetow", x="dzien", group = "kto", type = "Line",
+                   data = tabela2 %>%
+                      filter( kto %in% input$tweeet))
+      m3$addParams(dom = "myChart3")
+      m3$set(lineColors=c(   'blue','#594c26','green','brown'))
+      return(m3)
+      
+   })
+   
 
    output$myChart2 <- renderChart({
    
@@ -154,6 +198,12 @@ server <- function(input, output) {
    
    
 })
+   
+   
+   
+   output$globe <- renderGlobe({
+      population
+   })
    
    
 }
