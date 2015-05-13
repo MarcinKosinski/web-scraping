@@ -97,8 +97,10 @@ ui <- dashboardPage(
                   )
          ),
          tabItem(tabName = "twit",
+                 fluidRow(
                  box( title = "Gdzie tweetowano o kandydatach (użytkownicy z włączoną lokalizacją)?", collapsible = TRUE, 
                       width = 12, solidHeader = TRUE, status = "warning", globeOutput("globe")
+                 )
                  )
                       
          ),
@@ -131,16 +133,16 @@ ui <- dashboardPage(
    )
 )
 
-load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
-load("Analizy/Ilosciowo/barchart.rda")
-load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
-population <- readRDS("Aplikacja/kula.Rds")
-load("Aplikacja/tabela2.rda")
-# load("doNarysowaniaDygraph.rda")
-# load("barchart.rda")
-# load("ileLajkow.rda")
-# load("tabela2.rda")
-# population <- readRDS("kula.Rds")
+# load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
+# load("Analizy/Ilosciowo/barchart.rda")
+# load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
+# population <- readRDS("Aplikacja/kula.Rds")
+# load("Aplikacja/tabela2.rda")
+load("doNarysowaniaDygraph.rda")
+load("barchart.rda")
+load("ileLajkow.rda")
+load("tabela2.rda")
+population <- readRDS("kula.Rds")
 
 
 server <- function(input, output) {

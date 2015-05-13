@@ -55,4 +55,9 @@ Dla zebranych artykułów i komentarzy pod nimi przeprowadzono analizę sentymen
 
 Dla zebranych artykułów, sprawdzono również 5 portali, które najczęściej publikowały artykuł zawierający nazwiska owych 4 kandydatów. **Interaktywny** wykres z podziałem na kandydatów oraz na portale jest dostępny w boxie z podpisem `Kto o kim pisał`.
 
-Dla zebranych informacjiz facebooku, sprawdzono ile, na przeciągu kolejnych dni, konkretni kandydaci zbierali `like`ów pod swoimi postami. **Interaktywny** wykres z podziałem na kandydatów jest dostępny w boxie z podpisem: `Kto ile dziennie miał like'ów pod postami na fanpage?`
+Dla zebranych informacji z facebooku, sprawdzono ile, na przeciągu kolejnych dni, konkretni kandydaci zbierali `like`ów pod swoimi postami. **Interaktywny** wykres z podziałem na kandydatów jest dostępny w boxie z podpisem: `Kto ile dziennie miał like'ów pod postami na fanpage?`
+
+Dla zebranych informacji o tweetach przygotowano genialną wizualizację przestrzenną, w której widać z jakich lokalizacji ludzie tweetowali. Wykres (**interaktywny**) można podziwiać w zakładce `Kula Tweetów`.
+
+Dla zebranych informacji o tweetach przygotowano również wizualizację obrazującą o kim
+ile w danym dniu było tweetów. Pokazuje to pierwszy **interaktywny** wykres w zakładce `Twitter`.
