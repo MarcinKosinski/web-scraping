@@ -26,6 +26,7 @@ Pliki
 
 - `aplikacja.bat` to skrypt wywołujący się raz dziennie. Jest to skrypt, który wywołuje skrypty z katalogu `Analizy`, które to, ze zgromadzonych danych, przygotowują wskaźniki w okrojonej i mniejszej pamięciowo formie, która jest możliwa do zamieszczenia w aplikacji `shinydashboard`. Po wykonaniu analiz, które za każdym razem odbywają się na powiększonych i zaktualizowanych danych, dzięki skryptom `rfacebook.bat` oraz `scrapping.bat`, skrypt `aplikacja.bat` aktualizuje aplikację `shinydashboard` na serwerze `shinyapp.io` - a dokładnie pod adresem: [https://marcinkosinski.shinyapps.io/wp2015/](https://marcinkosinski.shinyapps.io/wp2015/)
 
+- dane z Twittera byly zapuszczane raz na tydzien i zbieraly twitty z ostatniego tygodnia dla kazdego slowa ze slownika. Automatycznie, przy kazdym nowym tygodniu, obliczane byly wskazniki i dopisywane do odpowiednich plikow. Ostatecznie wszyskto bylo laczone w wielka tabele `twitter_ostatecznie.txt`
 
 ## Ilość i źródła zbieranych danych
 
