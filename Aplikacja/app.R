@@ -49,28 +49,44 @@ ui <- dashboardPage(
 #                      hr(),
                      box(title = "Analiza sentymentu", collapsible = TRUE, 
                           width = 4, solidHeader = TRUE, status = "warning",
-                        dygraphOutput("dajgraf", height = 400)
+                        dygraphOutput("dajgraf", height = 400),
+                        textOutput("legendDivID")
                      ),
 
                       box(title = "Kto o kim pisał?", collapsible = TRUE, 
                           width = 8, solidHeader = TRUE, status = "warning",
-                         showOutput("myChart", "nvd3")
-                      ),
-                     box(title = "Legenda", textOutput("legendDivID"), collapsible = TRUE,
-                         #collapsed = TRUE,
-                         width = 4, solidHeader = TRUE, status = "warning",height = 90),
-                     box(title = "Kierunek osi", collapsible = TRUE, 
-                         #collapsed = TRUE,
-                         width = 8, solidHeader = TRUE, status = "warning",height = 90,
+                         showOutput("myChart", "nvd3"),
                          selectInput(inputId = "type",
                                      label = "Kierunek osi wykresu paskowego",
                                      choices = c("multiBarChart", "multiBarHorizontalChart"),
                                      selected = "multiBarChart")
-                     ),
+                      ),
+#                      box(title = "Legenda", textOutput("legendDivID"), collapsible = TRUE,
+#                          #collapsed = TRUE,
+#                          width = 4, solidHeader = TRUE, status = "warning",height = 90),
+#                      box(title = "Kierunek osi", collapsible = TRUE, 
+#                          #collapsed = TRUE,
+#                          width = 8, solidHeader = TRUE, status = "warning",height = 90,
+#                          selectInput(inputId = "type",
+#                                      label = "Kierunek osi wykresu paskowego",
+#                                      choices = c("multiBarChart", "multiBarHorizontalChart"),
+#                                      selected = "multiBarChart")
+#                      ),
                      box(title = "Kto ile dziennie miał like'ów?", collapsible = TRUE, 
                          width = 12, solidHeader = TRUE, status = "warning",
-                         showOutput("myChart2", "morris")
-                        
+                         showOutput("myChart2", "morris"),
+                         
+                         selectInput(inputId = "fanpejdz",
+                                     label = "Które fanpage uwzględnić?",
+                                     choices = c("janusz.korwin.mikke",
+                                                 "KomorowskiBronislaw",
+                                                 "2MagdalenaOgorek",
+                                                 "andrzejduda"),
+                                     multiple = TRUE,
+                                     selected = c("janusz.korwin.mikke",
+                                                  "KomorowskiBronislaw",
+                                                  "2MagdalenaOgorek",
+                                                  "andrzejduda"))
                          
                      )
                      
@@ -89,37 +105,6 @@ load("Analizy/Sentyment/doNarysowaniaDygraph.rda")
 load("Analizy/Ilosciowo/barchart.rda")
 load("Analizy/Dzienna_ilosc_like_w_postach/ileLajkow.rda")
 
-
-ePlot <- function(x, y, data, group, type, colors, ...){
-   require(rCharts); require(plyr)
-   if (!missing(group)){
-      series = setNames(dlply(data, group, function(d){
-         list(
-            name = d[[group]][1],
-            type = type,
-            data = d[[y]],
-            ...
-         )
-      }), NULL) 
-   }
-   xAxis = list(
-      type = 'category',
-      data = unique(data[[x]])
-   )
-   legend = list(
-      data = unique(data[[group]])
-   )
-   if (!missing(colors)){
-      series = lapply(seq_along(series), function(i){
-         series[[i]]$itemStyle = list(normal = list(color = colors[i]))
-         return(series[[i]])
-      })
-   }
-   r1 <- rCharts$new()
-   r1$setLib('echarts')
-   r1$set(series = series, xAxis = xAxis, legend = legend)
-   r1
-}
 
 
 
@@ -154,11 +139,12 @@ server <- function(input, output) {
    output$myChart2 <- renderChart({
    
    m1 <- mPlot(x = "daty", y = c("ileLajkowPodWpisami"),
-               group = "kandydat", type = "Line", data = ileLajkow)
+               group = "kandydat", type = "Line", data = ileLajkow %>%
+                  filter(kandydat %in% input$fanpejdz))
    m1$set(pointSize = 0, lineWidth = 1)
    m1$addParams(dom = "myChart2")
     m1$set(lineColors=c(   'blue','#594c26','green','brown'))
-    #m1$set(ymax=150000) <- to rujnuje wykresy
+    #m1$set(ymax=160000) #<- to rujnuje wykresy
 
    return(m1)
    
