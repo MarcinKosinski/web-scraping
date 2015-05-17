@@ -162,7 +162,7 @@ ui <- dashboardPage(
                   )
          ),
          tabItem(tabName = "opis",
-                 h2("Autorzy: Marcina Kosinskiego, Marta Sommer."),
+                 h2("Autorzy: Marcin Kosinski, Marta Sommer."),
                  h5("Opis aplikacji i kodów źródłowych można znaleźć tutaj, na dole storny https://github.com/MarcinKosinski/web-scraping")
                )
          )

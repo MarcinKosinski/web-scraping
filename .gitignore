@@ -1,6 +1,7 @@
 # Created by https://www.gitignore.io
 
-dane/
+dane/artykuly
+dane/facebook
 *.Rout
 Aplikacja/shinyapps/
 R/Marcin.R

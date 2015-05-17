@@ -13,7 +13,7 @@ pagesToDDl <- list("janusz.korwin.mikke",
                    "andrzejduda")
 
 
-daty <- seq(from = as.Date("2015/03/01"), to = as.Date("2015/05/12"), by = "day")
+daty <- seq(from = as.Date("2015/03/01"), to = as.Date(Sys.Date()), by = "day")
 
 # download posts from pages
 information <- lapply(pagesToDDl, function( page ){
